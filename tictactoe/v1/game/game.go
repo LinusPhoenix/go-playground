@@ -195,10 +195,6 @@ func (game *Game) checkAntidiagonalForWinner(x int, y int, winCandidate CellStat
 	if winCandidate == None {
 		return None
 	}
-	// If x does not equal y, the move was not made on a diagonal.
-	if x != y {
-		return None
-	}
 
 	// Check bottom left to top right
 	for i := 0; i <= 2; i++ {
