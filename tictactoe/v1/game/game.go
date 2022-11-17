@@ -25,9 +25,9 @@ const (
 	O    CellState = iota
 )
 
-type move struct {
-	x      int
-	y      int
+type Move struct {
+	X      int
+	Y      int
 	player CellState
 }
 
@@ -40,7 +40,7 @@ type Game struct {
 	// While the game is active, swaps between X and O. X goes first.
 	// Once the game is over, this is set to None
 	playerActive CellState
-	moveLast     *move
+	moveLast     *Move
 	// While the game is going on, this is false, and true when the game is finished.
 	gameOver bool
 	// While gameOver is false, this is set to None.
@@ -78,6 +78,10 @@ func (game *Game) GetWinner() CellState {
 	return game.winner
 }
 
+func (game *Game) GetLastMove() *Move {
+	return game.moveLast
+}
+
 func (game *Game) MakeTurn(x int, y int) error {
 	if game.gameOver {
 		return errors.New("The game is over. No more moves can be made")
@@ -90,7 +94,7 @@ func (game *Game) MakeTurn(x int, y int) error {
 		return fmt.Errorf("Invalid move. The cell at [%d][%d] is already claimed by %#v", x, y, cell)
 	}
 	game.board[x][y] = game.playerActive
-	game.moveLast = &move{x, y, game.playerActive}
+	game.moveLast = &Move{x, y, game.playerActive}
 
 	switch game.playerActive {
 	case X:
@@ -114,8 +118,8 @@ func (game *Game) isGameOver() (bool, CellState) {
 
 	// Only the player who made the last move can win.
 	winCandidate := game.moveLast.player
-	x := game.moveLast.x
-	y := game.moveLast.y
+	x := game.moveLast.X
+	y := game.moveLast.Y
 
 	// Should the last move be made by None, there can be no winner.
 	if winCandidate == None {

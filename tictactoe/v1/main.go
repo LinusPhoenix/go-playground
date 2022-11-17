@@ -78,7 +78,9 @@ func (m model) View() string {
 
 	playerActive := m.game.GetPlayerActive()
 	gameOver := m.game.IsGameOver()
-	s += fmt.Sprintf("Active player: %v\n\n", playerActive)
+	if !gameOver {
+		s += fmt.Sprintf("Active player: %v\n\n", playerActive)
+	}
 
 	// Render the board row by row.
 	for i := 0; i <= 2; i++ {
@@ -88,7 +90,14 @@ func (m model) View() string {
 				s += " "
 			}
 			cellState, _ := m.game.GetCellState(i, j)
-			s += fmt.Sprintf("[%v]", cellState)
+			// Color the cell value if it's the most recent move.
+			var coloredState string
+			if move := m.game.GetLastMove(); move != nil && move.X == i && move.Y == j {
+				coloredState = fmt.Sprintf("\033[4;32m%v\033[0m", cellState)
+			} else {
+				coloredState = fmt.Sprintf("%v", cellState)
+			}
+			s += fmt.Sprintf("[%v]", coloredState)
 		}
 		s += "\n"
 		// If this is the cursor's row, render the cursor. Otherwise, render an empty row.
