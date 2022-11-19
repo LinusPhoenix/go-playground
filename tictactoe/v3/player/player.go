@@ -9,16 +9,16 @@ import (
 
 var winDirections = [][3]move{
 	// Rows.
-	[3]move{move{0, 0}, move{0, 1}, move{0, 2}},
-	[3]move{move{1, 0}, move{1, 1}, move{1, 2}},
-	[3]move{move{2, 0}, move{2, 1}, move{2, 2}},
+	{move{0, 0}, move{0, 1}, move{0, 2}},
+	{move{1, 0}, move{1, 1}, move{1, 2}},
+	{move{2, 0}, move{2, 1}, move{2, 2}},
 	// Columns
-	[3]move{move{0, 0}, move{1, 0}, move{2, 0}},
-	[3]move{move{0, 1}, move{1, 1}, move{2, 1}},
-	[3]move{move{0, 2}, move{1, 2}, move{2, 2}},
+	{move{0, 0}, move{1, 0}, move{2, 0}},
+	{move{0, 1}, move{1, 1}, move{2, 1}},
+	{move{0, 2}, move{1, 2}, move{2, 2}},
 	// Diagonals
-	[3]move{move{0, 0}, move{1, 1}, move{2, 2}},
-	[3]move{move{2, 0}, move{1, 1}, move{0, 2}},
+	{move{0, 0}, move{1, 1}, move{2, 2}},
+	{move{2, 0}, move{1, 1}, move{0, 2}},
 }
 
 func init() {
