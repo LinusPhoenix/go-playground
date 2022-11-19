@@ -81,13 +81,17 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			if !m.game.IsGameOver() {
 				// Process the player's turn.
-				m.err = m.game.MakeTurn(m.cursorX, m.cursorY)
+				err := m.game.MakeTurn(m.cursorX, m.cursorY)
+				if err != nil {
+					m.err = err
+					return m, nil
+				}
 				if m.game.IsGameOver() {
 					return m, tea.Quit
 				}
 				// Process the AI's turn.
-				err := m.ai.MakeTurn(m.game)
-				if err != nil {
+				aiErr := m.ai.MakeTurn(m.game)
+				if aiErr != nil {
 					m.err = errors.New("The AI crashed! The game is over")
 					return m, tea.Quit
 				}
