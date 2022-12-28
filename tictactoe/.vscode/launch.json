@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug v2",
+            "name": "Debug v4",
             "type": "go",
             "request": "launch",
             "console": "integratedTerminal",
             "mode": "auto",
-            "program": "./v2"
+            "program": "./v4"
         }
     ]
 }
